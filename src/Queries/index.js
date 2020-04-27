@@ -5,8 +5,26 @@ export const GET_USERS = gql`
     getUsers {
       id,
       name,
-      job_title,
-      email
+      last_name,
+      email,
+      dni,
+      telefono,
+      password,
+      active,
+      tipo_usuario
+    }
+  }
+`;
+
+export const GET_UNIDAD = gql`
+  {
+    getUnidades {
+      id,
+      nombre
+      direccion
+      telefono
+      id_admin
+      active
     }
   }
 `;
