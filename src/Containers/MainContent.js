@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Route, Switch } from 'react-router';
-import Usuarios from '../Components/Tablas/Usuarios';
-import Conjuntos from '../Components/Tablas/Conjuntos';
-import Contador from '../Components/Elementos/conteo'
+import ContainerUser from '../Containers/ContainerUser';
+import ContainerUnidad from '../Containers/ContainerUnidad';
+import Aptos from './ContainerAptos';
+import SignIn from '../Components/Forms/SignIn'
 
 const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
@@ -23,17 +24,19 @@ export default function MainContent() {
             <div className={classes.toolbar} />
             <Switch>
                 <Route path="/usuarios">
-                    <Usuarios/>
+                    <ContainerUser/>
                 </Route>
                 <Route path="/conjuntos">
-                    <Conjuntos/>
+                    <ContainerUnidad/>
                 </Route>
                 <Route path="/casa">
-                    <h2>casas</h2>
+                    <Aptos/>
                 </Route>
                 <Route path="/salir">
-                    <h2>salir</h2>
-                    <Contador></Contador>
+                    <h2>login</h2>
+                </Route>
+                <Route path="/login">
+                    <SignIn/>
                 </Route>
                 <Route path="/">
                     <h2>dasboard</h2>

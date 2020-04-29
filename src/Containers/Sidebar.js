@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import { mainListItems } from '../Components/Elementos/elementos';
+import MainListItems from '../Components/Elementos/elementos';
 import Typography from '@material-ui/core/Typography';
 
 const drawerWidth = 240;
@@ -35,7 +35,9 @@ export default function Sidebar() {
                 Nombre
             </Typography>
             <Divider />
-            <List>{mainListItems}</List>
+                <List>
+                    <MainListItems/>
+                </List>
             <Divider />
         </Drawer>
     );

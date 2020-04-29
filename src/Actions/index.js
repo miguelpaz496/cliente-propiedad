@@ -1,75 +1,39 @@
+export const GET_USER = 'GET_USER';
+export const GET_UNIDAD = 'GET_UNIDAD';
+export const GET_APTOS = 'GET_APTOS';
+export const AUTH_SIGNIN = 'AUTH_SIGNIN';
+export const AUTH_SIGNOUT = 'AUTH_SIGNOUT';
 
-export const fetchPosts = () => async (dispatch, getState, api) => {
-
-
-    const landingPageAPI = 'http://localhost:4000/graphql';
-
-    const _query = {
-        query: `  {
-            getUsers {
-              id,
-              name,
-              job_title,
-              email
-            }
-          }
-        `
-    };
-
-    await api.post(landingPageAPI, _query).then(response => {
-        dispatch({
-            type: 'GET_USER',
-            payload: response.data
-        })
-    }).catch((err) => {
-        console.log('error', err);
-    })
-    
+/* ejemplo de action
+export const signIn = (token) => {
+  localStorage.setItem('token', token);
+  return { type: AUTH_SIGNIN };
 };
-/*
-export const mensaje = () => async (dispatch, getState, api) => {
-
-    console.log("boton");
-
-    return{
-        type: 'SUMAR',
-        numero: 1
-    }
-
-    const landingPageAPI = 'http://localhost:4000/graphql';
-
-    const _query = {
-        query: `  {
-            getUsers {
-              id,
-              name,
-              job_title,
-              email
-            }
-          }
-        `
-    };
- 
-
-};   */
+*/
 
 export function alluser(user) {
     return{
-        type: 'GET_USER',
+        type: GET_USER,
         payload: user
     }
 }
 
 export function allunidad(unidad) {
     return{
-        type: 'GET_UNIDAD',
+        type: GET_UNIDAD,
         payload: unidad
     }
 }
 
-export function sumarAction(num) {
-    return{
-        type: 'SUMAR',
-        numero: num
+export function allaptos(aptos) {
+    return {
+        type: GET_APTOS,
+        payload: aptos
+    }
+}
+
+export function signOut() {
+    return {
+        type: AUTH_SIGNOUT,
     }
 }

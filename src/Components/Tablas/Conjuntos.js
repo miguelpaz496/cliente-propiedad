@@ -1,12 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { allunidad } from '../../Actions'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-const Conjuntos = ({user}) => {
+const Unidades = ({data, inicio}) => {
+
+  const Unidades = data.getUnidades;
+
+  if(Unidades){
+    inicio(Unidades)
+  }
+
+  if (!Unidades) {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
+            <h1>Loading</h1>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <React.Fragment>
       <Table size="small">
@@ -21,7 +41,7 @@ const Conjuntos = ({user}) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {user.conjuntos.map((row) => (
+          {Unidades.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.nombre}</TableCell>
@@ -37,8 +57,20 @@ const Conjuntos = ({user}) => {
   );
 }
 
+/*
 const mapStateToProps = state =>({
   user: state.user
 })
+*/
 
-export default connect(mapStateToProps)(Conjuntos)
+const mapDispatchToProps = dispatch => ({
+
+  inicio(unidades) {
+      
+      dispatch(allunidad(unidades))
+
+  }
+
+})
+
+export default connect(null,mapDispatchToProps)(Unidades)
