@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux'
-import {   allunidad } from './Actions/index'
+import { allunidad } from './Actions'
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
-import { BrowserRouter as Router, useHistory } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Header from './Containers/Header';
 import Sidebar from './Containers/Sidebar';
 import MainContent from './Containers/MainContent';
@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function App( {authenticated} ) {
+const App =  ( {authenticated} ) => {
 
   const classes = useStyles();
 
@@ -33,7 +33,7 @@ function App( {authenticated} ) {
   )
   
   return (
-      <Router history={useHistory}>
+      <Router>
         <div className="App">
           <div className={classes.root}>
            {pagina}

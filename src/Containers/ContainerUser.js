@@ -1,8 +1,8 @@
 import { graphql } from 'react-apollo';
-import { QUERY_GET_USERS } from '../Queries/index'
+import { QUERY_GET_USERS } from '../Queries'
 
-import Aptos from '../Components/Tablas/Users';
+import Users from '../Components/Tablas/Users';
 
-const AptosWithData = graphql(QUERY_GET_USERS)(Aptos);
+const AptosWithData = graphql(QUERY_GET_USERS)(Users);
 
 export default AptosWithData;

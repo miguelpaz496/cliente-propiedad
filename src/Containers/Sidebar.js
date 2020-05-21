@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -16,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         flexShrink: 0,
     },
     drawerPaper: {
-        width: drawerWidth,
+        width: 240,
     },
 }));
 
@@ -42,7 +41,3 @@ export default function Sidebar() {
         </Drawer>
     );
 }
-
-Sidebar.propTypes = {
-    children: PropTypes.node,
-};

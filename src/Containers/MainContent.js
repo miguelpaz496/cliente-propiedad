@@ -6,6 +6,7 @@ import ContainerUser from '../Containers/ContainerUser';
 import ContainerUnidad from '../Containers/ContainerUnidad';
 import Aptos from './ContainerAptos';
 import SignIn from '../Components/Forms/SignIn'
+import MyDialog from './MyDialog'
 
 const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
@@ -27,7 +28,9 @@ export default function MainContent() {
                     <ContainerUser/>
                 </Route>
                 <Route path="/conjuntos">
-                    <ContainerUnidad/>
+                    <MyDialog tipo="Crear Unidad"/>
+                    <ContainerUnidad />
+                    
                 </Route>
                 <Route path="/casa">
                     <Aptos/>

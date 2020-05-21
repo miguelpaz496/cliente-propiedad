@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { createStore } from 'redux';
 import reducers from './Reducers'
 import { Provider } from 'react-redux';
