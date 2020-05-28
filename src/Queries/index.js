@@ -1,19 +1,24 @@
 import { gql } from 'apollo-boost';
 
 export const QUERY_GET_USERS = gql`
-  {
-    getUsers {
-      id,
-      name,
-      last_name,
-      email,
-      dni,
-      telefono,
-      password,
-      active,
-      tipo_usuario
-    }
-  }
+{
+  users{
+     data{
+       id,
+       name,
+       last_name,
+       email,
+       dni,
+       telefono,
+       password,
+       active,
+       tipo{
+         tipo_usuarios
+         id
+       }
+     }
+   }
+ }
 `;
 
 export const QUERY_GET_UNIDAD = gql`
@@ -30,12 +35,31 @@ export const QUERY_GET_UNIDAD = gql`
 `;
 
 export const QUERY_GET_APTOS = gql`
-  query {
-    getAptos {
-        id,
-        nomenclatura
+{
+  aptos {
+    data {
+      id
+      nomenclatura
+      unidad{
+        nombre
+      }
+      bloque{
+        nombre
+      }
+      tipoapto{
+        tipo_apto
+      }
+      propietario{
+        name
+        last_name
+      }
+      arrendatario{
+        name
+        last_name
+      }
     }
   }
+}
 `;
 
 

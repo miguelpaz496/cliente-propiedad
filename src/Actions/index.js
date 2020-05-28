@@ -21,11 +21,11 @@ export const signIn = (token) => {
 
 
 
-export function alluser(user) {
+export function alluser(users) {
 
     return{
         type: GET_USER,
-        payload: user
+        payload: users
     }
 }
 

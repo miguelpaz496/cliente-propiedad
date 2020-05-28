@@ -10,6 +10,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import {QUERY_DELETE_USER} from './../../Queries';
 import { graphql } from 'react-apollo';
@@ -24,8 +26,9 @@ export class Usuarios extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.data.getUsers !== this.props.user.usuarios && !this.state.datos){ // 1. datos de la consulta 2. usuarios del reducer 
-      this.props.inicio(this.props.data.getUsers)                                // 3. datos del state local del componente
+    console.log(this.props.data.users.data)
+    if (this.props.data.users.data !== this.props.user.usuarios && !this.state.datos){ // 1. datos de la consulta 2. usuarios del reducer 
+      this.props.inicio(this.props.data.users.data)                                // 3. datos del state local del componente
       this.setState({datos: true})
     }
 
@@ -38,7 +41,7 @@ export class Usuarios extends React.Component {
 
     var usuarios_componente = []
 
-    if (user.conjuntos){
+    if (user.usuarios){
       usuarios_componente = user.usuarios // variable local del componente = variable del store
     }
 
@@ -54,7 +57,7 @@ export class Usuarios extends React.Component {
               <TableCell>CEDULA</TableCell>
               <TableCell>TELEFONO</TableCell>
               <TableCell>TIPO USUARIO</TableCell>
-              <TableCell>BOTON</TableCell>
+              <TableCell>ACTIVO?</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -66,11 +69,9 @@ export class Usuarios extends React.Component {
                 <TableCell>{row.email}</TableCell>
                 <TableCell>{row.dni}</TableCell>
                 <TableCell>{row.telefono}</TableCell>
-                <TableCell>{row.tipo_usuario}</TableCell>
+                <TableCell>{row.tipo.tipo_usuarios}</TableCell>
                 <TableCell>
-                  <IconButton onClick={() => this.props.eliminarFila(row.id)} aria-label="delete">
-                    <DeleteIcon fontSize="small" />
-                </IconButton>  
+                   {(row.active) ? <CheckCircleIcon/> : <CancelIcon/>  }             
                 </TableCell>
               </TableRow>
             ))}
@@ -102,9 +103,9 @@ const mapStateToProps = state =>({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
 
-  inicio(user) {
+  inicio(users) {
       
-      dispatch(alluser(user))
+      dispatch(alluser(users))
 
   },
 
