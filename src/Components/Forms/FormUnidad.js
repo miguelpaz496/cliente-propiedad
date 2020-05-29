@@ -23,24 +23,62 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FormUnidad = ({onSubmit, onClick }) => {
+const FormUnidad = ({onSubmit, onClick, unidad }) => {
 
   const classes = useStyles();
+
+  const [state, setState] = React.useState({
+    nombre: "",
+    direccion: "",
+    telefono: "",
+    id_admin: "",
+    activo: false,
+  });
 
   const cerrar = () =>{
     onClick()
   }
 
+  const handleChangeCheck = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
+
+  const handleChangeValue = (event) => {
+    setState({ ...state, [event.target.name]: event.target.value });
+  };
+
+  const { nombre, direccion, telefono, id_admin, activo } = state;
+
+
+  if ( unidad !== "false" ){
+    setState({ 
+      ...state, 
+      nombre: unidad.nombre, 
+      direccion: unidad.direccion,
+      telefono: unidad.telefono, 
+      id_admin: unidad.id_admin, 
+      activo: unidad.active,  
+    })
+  }
+
   const enviarForm = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
+    console.log(formData.get('nombre'))
+    console.log(formData.get('direccion'))
+    console.log(formData.get('telefono'))
+    console.log(formData.get('id_admin'))
+    console.log(formData.get('activo'))
+    console.log(activo)
+    
     return onSubmit({
         nombre: formData.get('nombre'),
         direccion: formData.get('direccion'),
         telefono: formData.get('telefono'),
         id_admin: formData.get('id_admin'),
-        active: formData.get('activo'),
+        active: activo,
     });
+    
   }
 
 
@@ -59,6 +97,8 @@ const FormUnidad = ({onSubmit, onClick }) => {
                 id="nombre"
                 name="nombre"
                 label="Nombre"
+                value={nombre} 
+                onChange={handleChangeValue}
                 fullWidth
                 autoComplete="billing address-level2"
             />
@@ -69,6 +109,8 @@ const FormUnidad = ({onSubmit, onClick }) => {
                 id="direccion"
                 name="direccion"
                 label="Dirección"
+                value={direccion} 
+                onChange={handleChangeValue}
                 fullWidth
                 autoComplete="billing postal-code"
             />
@@ -79,6 +121,8 @@ const FormUnidad = ({onSubmit, onClick }) => {
                 id="telefono"
                 name="telefono"
                 label="Telefono"
+                value={telefono}
+                onChange={handleChangeValue}
                 fullWidth
                 autoComplete="billing country"
             />
@@ -89,13 +133,15 @@ const FormUnidad = ({onSubmit, onClick }) => {
                 id="id_admin"
                 name="id_admin"
                 label="Admin"
+                value={id_admin}
+                onChange={handleChangeValue}
                 fullWidth
                 autoComplete="billing country"
             />
         </Grid>
         <Grid item xs={12}>
             <FormControlLabel
-                control={<Checkbox color="secondary" name="activo" value="true" />}
+                control={<Checkbox color="secondary" name="activo" checked={activo} onChange={handleChangeCheck} />}
                 label="Activo"
             />
         </Grid>
@@ -136,7 +182,7 @@ const withMutation = graphql(QUERY_CREATE_UNIDAD, {
         direccion: input.direccion,
         telefono: input.telefono,
         id_admin: 1,
-        active: true,
+        active: input.active,
         },
       }),
     }),
@@ -153,15 +199,19 @@ const withMutation = graphql(QUERY_CREATE_UNIDAD, {
     onSubmit({ nombre, direccion, telefono, id_admin, active }) {
       //dispatch(createUserRequest({ username }));
       ownProps.createUnidad({ nombre, direccion, telefono, id_admin, active })
-      .then(() => {
+      .then((response) => {
         console.log("bueno");
+        console.log(response)
         var nuevaUnidad = {
-          "id": "100",
-          "nombre": nombre,
-          "direccion": direccion,
-          "telefono": telefono,
-          "id_admin": id_admin,
-          "active": true,
+          "id": response.data.createUnidad.id,
+          "nombre": response.data.createUnidad.nombre,
+          "direccion": response.data.createUnidad.direccion,
+          "telefono": response.data.createUnidad.telefono,
+          "admin": {
+            "name": response.data.createUnidad.admin.name,
+            "__typename": "User"
+          },
+          "active": response.data.createUnidad.active,
           "__typename": "Unidad"
         }
         dispatch(addunidad(nuevaUnidad));

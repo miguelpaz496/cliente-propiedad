@@ -2,18 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { allaptos } from '../../Actions'
 
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
 
-import { graphql } from 'react-apollo';
+
+//import { graphql } from 'react-apollo';
 
 
 
@@ -25,7 +21,7 @@ export class Aptos extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(this.props.data.aptos.data)
+    //console.log(this.props.data.aptos.data)
     if (this.props.data.aptos.data !== this.props.apto.aptos && !this.state.datos){ // 1. datos de la consulta 2. usuarios del reducer 
       this.props.inicio(this.props.data.aptos.data)                                // 3. datos del state local del componente
       this.setState({datos: true})

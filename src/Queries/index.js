@@ -23,13 +23,16 @@ export const QUERY_GET_USERS = gql`
 
 export const QUERY_GET_UNIDAD = gql`
   {
-    getUnidades {
-      id,
-      nombre
-      direccion
-      telefono
-      id_admin
-      active
+    unidades{
+      data{
+        id
+        nombre
+        direccion
+        telefono
+        admin{
+          name
+        }
+      }
     }
   }
 `;
@@ -63,21 +66,35 @@ export const QUERY_GET_APTOS = gql`
 `;
 
 
+
 export const QUERY_CREATE_UNIDAD = gql`
 mutation createUnidad($nombre: String, $direccion: String, $telefono: String, $id_admin: Int, $active: Boolean) {
      
-  createUnidad(nombre: $nombre, direccion: $direccion, telefono: $telefono, id_admin: $id_admin, active: $active)
-
-
+  createUnidad(nombre: $nombre, direccion: $direccion, telefono: $telefono, admin_id: $id_admin, active: $active)
+  {
+    id
+    nombre
+    direccion
+    telefono
+    admin{
+      name
+    }
+    active
+  }
 }
-`
+`;
+
 export const QUERY_DELETE_UNIDAD = gql`
 mutation deleteUnidad($id: ID!) {
      
   deleteUnidad(id: $id)
+  {
+    id
+  }
 
 }
-`
+`;
+
 
 export const QUERY_DELETE_USER = gql`
 mutation deleteUser($id: ID!) {
@@ -85,4 +102,4 @@ mutation deleteUser($id: ID!) {
   deleteUser(id: $id)
 
 }
-`
+`;
