@@ -1,46 +1,34 @@
-import React, { Fragment } from 'react';
-//import Button from '@material-ui/core/Button';
-//import TextField from '@material-ui/core/TextField';
+import React from 'react';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
-import { makeStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles((theme) => ({
-    margin: {
-      margin: theme.spacing(1),
-    },
-    extendedIcon: {
-      marginRight: theme.spacing(1),
-    },
-    ancho: {
-        width: 12,
-      },
-  }));
 
-const DialogForm = ( {titulo, children} ) => {
-  const [open, setOpen] = React.useState(false);
-  const classes = useStyles();
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+const DialogForm = ( {titulo="", contenido="", mostrar, cerrar} ) => {
+    
 
   return (
-    <div className={classes.ancho}>
-      <IconButton  className={classes.margin} variant="outlined" color="primary" onClick={handleClickOpen}>
-        {titulo}
-      </IconButton>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog  maxWidth="sm"  open={mostrar} onClose={cerrar} aria-labelledby="form-dialog-title">
+        <DialogTitle  display="flex" id="alert-dialog-title" >
+          <Grid  container item xs={12} alignContent='space-between'>
+            <Grid item xs={10} sm={10}>
+              {titulo}
+            </Grid>
+            <Grid item xs={2} sm={2} container alignItems="flex-start" justify="flex-end" direction="row">
+              <IconButton  aria-label="close" size="small"onClick={cerrar}>
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </Grid>
+          </Grid>
+        </DialogTitle>
         <DialogContent>
-            {children}
+            {contenido}
         </DialogContent>
       </Dialog>
-    </div>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux'
-import { allunidad } from './Actions'
+import { allunidad, updatealert } from './Actions'
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,6 +9,8 @@ import Header from './Containers/Header';
 import Sidebar from './Containers/Sidebar';
 import MainContent from './Containers/MainContent';
 import PageSignIn from './Containers/PageSignIn'
+import MyAlert from './Components/Alerts/MyAlert'
+
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -16,9 +18,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const App =  ( {authenticated} ) => {
+const App =  ( {authenticated, alert, close} ) => {
 
   const classes = useStyles();
+
+  const handleClose = () =>{
+
+    const new_alert = {
+        open_alert:false,
+        mensaje: alert.mensaje,
+        tipo: alert.tipo
+    }
+    
+    close(new_alert)
+
+  }
 
   const pagina = (
     (authenticated) ?
@@ -27,7 +41,10 @@ const App =  ( {authenticated} ) => {
         <Header/>
         <Sidebar/>
         <MainContent/> 
+        <MyAlert alert={alert} handleClose={handleClose}/>
       </Fragment>
+
+
     : 
     <PageSignIn/>  
   )
@@ -44,7 +61,8 @@ const App =  ( {authenticated} ) => {
 }
 
 const mapStateToProps = state =>({
-  authenticated: state.user.authenticated
+  authenticated: state.user.authenticated,
+  alert: state.user.alert
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -52,6 +70,11 @@ const mapDispatchToProps = dispatch => ({
   inicio( unidades) {
       dispatch(allunidad(unidades))
       
+  },
+
+  close( alert) {
+    dispatch(updatealert(alert))
+    
   }
 
 })

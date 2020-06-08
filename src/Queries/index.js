@@ -29,8 +29,10 @@ export const QUERY_GET_UNIDAD = gql`
         nombre
         direccion
         telefono
+        active
         admin{
           name
+          id
         }
       }
     }
@@ -78,6 +80,7 @@ mutation createUnidad($nombre: String, $direccion: String, $telefono: String, $i
     telefono
     admin{
       name
+      id
     }
     active
   }
@@ -103,3 +106,36 @@ mutation deleteUser($id: ID!) {
 
 }
 `;
+
+
+export const QUERY_UPDATE_UNIDAD = gql`
+mutation updateUnidad($id: ID!, $nombre: String, $direccion: String, $telefono: String, $id_admin: Int, $active: Boolean) {
+     
+  updateUnidad(id: $id, nombre: $nombre, direccion: $direccion, telefono: $telefono, admin_id: $id_admin, active: $active)
+  {
+    id
+    nombre
+    direccion
+    telefono
+    admin{
+      name
+      id
+    }
+    active
+  }
+}
+`;
+
+
+export const QUERY_DELETE_APTO = gql`
+mutation deleteApto($id: ID!) {
+     
+  deleteApto(id: $id)
+  {
+    id
+  }
+
+}
+
+`;
+

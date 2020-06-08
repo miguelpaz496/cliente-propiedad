@@ -5,11 +5,14 @@
 export const GET_USER = 'GET_USER';
 export const GET_UNIDAD = 'GET_UNIDAD';
 export const ADD_UNIDAD = 'ADD_UNIDAD';
+export const UPDATE_UNIDAD = 'UPDATE_UNIDAD';
+export const UPDATE_ALERT = 'UPDATE_ALERT';
 export const DELETE_UNIDAD = 'DELETE_UNIDAD';
 export const DELETE_USER = 'DELETE_USER';
 export const GET_APTOS = 'GET_APTOS';
 export const AUTH_SIGNIN = 'AUTH_SIGNIN';
 export const AUTH_SIGNOUT = 'AUTH_SIGNOUT';
+
 
 
 /* ejemplo de action
@@ -37,17 +40,26 @@ export function allunidad(unidad) {
 }
 
 export function addunidad(data) {
-/*
-    const { loading, error, data } = useQuery(QUERY_GET_UNIDAD);
-    
-      if (loading) return null;
-      if (error) return `Error! ${error}`;
-  
-    console.log(data)
-*/
 
     return{
         type: ADD_UNIDAD,
+        payload: data
+    }
+}
+
+
+export function updateunidad(data) {
+
+    return{
+        type: UPDATE_UNIDAD,
+        payload: data
+    }
+}
+
+export function updatealert(data) {
+
+    return{
+        type: UPDATE_ALERT,
         payload: data
     }
 }

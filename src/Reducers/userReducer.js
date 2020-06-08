@@ -2,6 +2,8 @@ import {
     GET_USER,
     GET_UNIDAD,
     ADD_UNIDAD,
+    UPDATE_UNIDAD,
+    UPDATE_ALERT,
     DELETE_UNIDAD,
     DELETE_USER,
     GET_APTOS,
@@ -15,7 +17,14 @@ const initialState = {
     usuarios: [],
     conjuntos: [],
     aptos: [],
-    authenticated: true
+    authenticated: true,
+    alert: {
+        open_alert:false,
+        mensaje:"vacio",
+        tipo:"success"
+    }
+
+
 }
 
 
@@ -36,6 +45,16 @@ export default function (state = initialState, action) {
                 ...state,
                 conjuntos: [...state.conjuntos, action.payload]
             }
+        case UPDATE_UNIDAD: 
+            return {
+                ...state, 
+                conjuntos: state.conjuntos.map(unidad => (unidad.id === action.payload.id) ? action.payload : unidad),
+            };
+        case UPDATE_ALERT: 
+            return {
+                ...state, 
+                alert: action.payload,
+            };
         case DELETE_UNIDAD:
             //items: state.conjuntos.filter((item, index) => item.id !== action.payload)
             return state = {

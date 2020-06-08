@@ -13,6 +13,8 @@ import { QUERY_DELETE_UNIDAD } from '../../Queries'
 import EditIcon from '@material-ui/icons/Edit';
 //import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Paper from '@material-ui/core/Paper';
+import TableContainer from '@material-ui/core/TableContainer';
 
 
 
@@ -67,6 +69,7 @@ export class Unidades extends React.Component {
 
     return (
       <React.Fragment>
+      <TableContainer component={Paper}>
       <Table className=".MuiTable-stickyHeader" size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
@@ -76,11 +79,12 @@ export class Unidades extends React.Component {
             <TableCell>TELEFONO</TableCell>
             <TableCell>ID ADMIN</TableCell>
             <TableCell >ACTIONS</TableCell>
+            <TableCell >ACTIONS</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {conjuntos.map((row) => (
-            <TableRow key={row.id}>
+            <TableRow  key={row.id}>
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.nombre}</TableCell>
               <TableCell>{row.direccion}</TableCell>
@@ -94,17 +98,20 @@ export class Unidades extends React.Component {
                 id= {row.id}   
                 mensaje= "¿Desea eliminar el registro?">
                </DialogMessage>
-               <DialogForm 
-                titulo={iconoEditar} >
-                  <FormUnidad 
-                    unidad={row} >
-                  </FormUnidad>
-               </DialogForm>
+              </TableCell>
+              <TableCell>
+                  <DialogForm 
+                  titulo={iconoEditar} >
+                    <FormUnidad 
+                      unidad={row} >
+                    </FormUnidad>
+                </DialogForm>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      </TableContainer>
     </React.Fragment>
     );
   }
