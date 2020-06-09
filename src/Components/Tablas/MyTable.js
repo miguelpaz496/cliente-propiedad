@@ -13,26 +13,37 @@ import DeleteIcon from '@material-ui/icons/Delete';
 const MyTable = ({ data, header,funEliminar,funEditar, texto }) => {
 
 
-    const row = (x, i, header) =>
+    const row = (objeto, i, header) =>
         <TableRow key={`tr-${i}`}>
             {
-                header.map((y, j) =>
+                header.map((titulo, j) =>
                     <TableCell key={`tc-${j}`}>
-                        {x[y.prop]}
+                        {objeto[titulo.prop] ? objeto[titulo.prop] : getValueProp(objeto, titulo.prop)}
                     </TableCell>
                 )
 
             }
             <TableCell>
-                <IconButton aria-label="delete" size="small" onClick={() => funEliminar(x.id, texto.con_eliminar)}>
+                <IconButton aria-label="delete" size="small" onClick={() => funEliminar(objeto.id, texto.con_eliminar)}>
                     <DeleteIcon fontSize="small" />
                 </IconButton>
-                <IconButton aria-label="delete" size="small"onClick={() => funEditar(x, texto.actualizar)}>
+                <IconButton aria-label="delete" size="small"onClick={() => funEditar(objeto, texto.actualizar)}>
                     <EditIcon fontSize="small" />
                 </IconButton>
             </TableCell>
         </TableRow>;
 
+    const getValueProp = (objecto, name ) =>{
+
+        var valores = name.split(".")
+        var respuesta = objecto
+
+        valores.forEach(valor => {
+            respuesta = respuesta[valor]
+        });
+
+        return respuesta
+    }    
 
     return (
 

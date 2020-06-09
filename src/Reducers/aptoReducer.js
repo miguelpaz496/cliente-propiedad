@@ -1,6 +1,6 @@
 import {    
     GET_APTOS,
-    
+    ADD_APTO, 
   } from '../Actions';
 
 
@@ -19,7 +19,11 @@ export default function (state = initialState, action) {
                 ...state,
                 aptos: action.payload
             }
-            
+        case ADD_APTO:
+                return state = {
+                    ...state,
+                    aptos: [...state.aptos, action.payload]
+                }
         default:
             return state;
     }

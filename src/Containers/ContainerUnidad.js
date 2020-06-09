@@ -25,7 +25,7 @@ export class ContainerUnidad extends React.Component {
 
     constructor(props) {
       super(props);
-      this.state = {datos: false,open: false, titulo_modal: "", mostrar: false, contenido: 'vacio',unidad: false};
+      this.state = {datos: false, titulo_modal: "", mostrar: false, contenido: 'vacio',unidad: false};
     }
   
   

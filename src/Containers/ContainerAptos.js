@@ -7,10 +7,17 @@ import { allaptos } from '../Actions'
 
 import MyTable from '../Components/Tablas/MyTable'
 import DialogForm from './DialogForm'
-import FormUnidad from '../Components/Forms/FormUnidad'
 import AskAlert from '../Components/Alerts/AskAlert'
+import FormApto from '../Components/Forms/FormApto'
 
 import Aptos from '../Components/Tablas/Aptos';
+
+import Paper from '@material-ui/core/Paper';
+import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
+import AddIcon from '@material-ui/icons/Add';
+
+
 
 export class ContainerAptos extends React.Component {
 
@@ -38,6 +45,9 @@ export class ContainerAptos extends React.Component {
 
         const {  apto, eliminarFila } = this.props;
 
+
+        const {  contenido, mostrar, titulo_modal } = this.state;
+
         var aptos_componente = []
 
         if (apto.aptos){
@@ -50,16 +60,16 @@ export class ContainerAptos extends React.Component {
             cerrar()
         }
     
-        const eliminar = (id, texto) =>{
+        const eliminar = (id, texto='prueba') =>{
             const boton = <AskAlert texto={texto}  nameButton="eliminar" action={confirmarEliminar} id={id} ></AskAlert>
             this.setState({contenido: boton})
             abrir()
         }
 
-        const openModal = (apto="", titulo="") =>{
+        const openModal = (apto="false", titulo="") =>{
             //const formUnidad = form(apto)
-
-            this.setState({contenido:"formUnidad", titulo_modal: titulo})
+            const formulario_nuevo = <FormApto onClick={cerrar} apto={apto} datos={datos_formulario} ></FormApto>
+            this.setState({contenido: formulario_nuevo , titulo_modal: titulo})
             abrir()
         }
     
@@ -87,19 +97,68 @@ export class ContainerAptos extends React.Component {
             con_eliminar: "¿Está seguro que desea eliminar la apto?"
         }
 
+        const bloques = [
+            {id: 2, nombre: "A"},
+            {id: 3, nombre: "B"},
+            {id: 4, nombre: "C"}
+        ]
+
+        const unidad = [
+            {id: 2, nombre: "Guadalupe Real"},
+            {id: 3, nombre: "Bosques de Cañaveralejo"},
+            {id: 4, nombre: "Guadalajara"}
+        ]
+
+        const tipo_apto = [
+            {id: 1, nombre: "78m"},
+            {id: 2, nombre: "82m"},
+            {id: 3, nombre: "80m"}
+        ]
+
+        const propietario = [
+            {id: 4, nombre: "Walter"},
+            {id: 5, nombre: "Juan"}
+        ]
+
+        const arrendatario = [
+            {id: 4, nombre: "Walter"},
+            {id: 5, nombre: "Juan"}
+        ]
+
+        const datos_formulario = [
+            bloques,
+            unidad,
+            tipo_apto,
+            propietario,
+            arrendatario
+        ]
+
         return(
 
             <Fragment>
-                    
-
-                    {aptos_componente && <MyTable 
-                    data={aptos_componente}
-                    header={header}
-                    texto={mensajes}
-                    funEliminar={eliminar}
-                    funEditar={openModal}
-                    >
-                    </MyTable>}
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={12}>
+                        <Paper>
+                            {aptos_componente && <MyTable 
+                                data={aptos_componente}
+                                header={header}
+                                texto={mensajes}
+                                funEliminar={eliminar}
+                                funEditar={openModal}
+                            >
+                            </MyTable>}
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={11} sm={11}>
+                        <DialogForm titulo={titulo_modal} contenido={contenido} mostrar={mostrar} cerrar={cerrar}> 
+                        </DialogForm>
+                    </Grid>
+                    <Grid item xs={1} sm={1}>
+                        <Fab color="primary" onClick={() => openModal("false", "Crear Apto")} aria-label="add">
+                            <AddIcon />
+                        </Fab>
+                    </Grid>
+                </Grid>
             </Fragment>
 
         )

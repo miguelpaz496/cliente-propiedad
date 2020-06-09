@@ -126,6 +126,35 @@ mutation updateUnidad($id: ID!, $nombre: String, $direccion: String, $telefono: 
 }
 `;
 
+export const QUERY_CREATE_APTO = gql`
+mutation ($nomenclatura:String,$unidad: Int,$bloque:Int,$tipoapto:Int,$propietario:Int,$arrendatario:Int){
+
+
+  createApto(nomenclatura:$nomenclatura, unidad_id: $unidad, bloque_id:$bloque, tipo_apto_id:$tipoapto, propietario_id:$propietario, arrendatario_id:$arrendatario)
+  {
+    id
+    nomenclatura
+    unidad{
+      nombre
+    }
+    bloque{
+      nombre
+    }
+    tipoapto{
+      tipo_apto
+    }
+    propietario{
+      name
+      last_name
+    }
+    arrendatario{
+      name
+      last_name
+    }
+  }
+}
+`;
+
 
 export const QUERY_DELETE_APTO = gql`
 mutation deleteApto($id: ID!) {

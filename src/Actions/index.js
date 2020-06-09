@@ -12,6 +12,7 @@ export const DELETE_USER = 'DELETE_USER';
 export const GET_APTOS = 'GET_APTOS';
 export const AUTH_SIGNIN = 'AUTH_SIGNIN';
 export const AUTH_SIGNOUT = 'AUTH_SIGNOUT';
+export const ADD_APTO = 'ADD_APTO';
 
 
 
@@ -86,6 +87,15 @@ export function allaptos(aptos) {
         payload: aptos
     }
 }
+
+export function addapto(data) {
+
+    return{
+        type: ADD_APTO,
+        payload: data
+    }
+}
+
 
 export function signOut() {
     return {
